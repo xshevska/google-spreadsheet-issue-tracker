@@ -1,7 +1,7 @@
-package com.xshevska.google_spreadsheet_issue_tracker.service;
+package com.xshevska.issuetracker.service;
 
-import com.xshevska.google_spreadsheet_issue_tracker.domain.model.Issue;
-import com.xshevska.google_spreadsheet_issue_tracker.domain.model.Status;
+import com.xshevska.issuetracker.domain.model.Issue;
+import com.xshevska.issuetracker.domain.model.Status;
 
 import java.util.List;
 

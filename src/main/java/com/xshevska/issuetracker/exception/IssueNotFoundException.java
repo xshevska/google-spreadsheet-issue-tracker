@@ -1,4 +1,4 @@
-package com.xshevska.google_spreadsheet_issue_tracker.exception;
+package com.xshevska.issuetracker.exception;
 
 public class IssueNotFoundException extends RuntimeException {
     public IssueNotFoundException(String id) {

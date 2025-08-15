@@ -1,6 +1,6 @@
-package com.xshevska.google_spreadsheet_issue_tracker.cli;
+package com.xshevska.issuetracker.cli;
 
-import com.xshevska.google_spreadsheet_issue_tracker.service.IssueService;
+import com.xshevska.issuetracker.service.IssueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

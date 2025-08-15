@@ -1,8 +1,8 @@
-package com.xshevska.google_spreadsheet_issue_tracker.repository.impl;
+package com.xshevska.issuetracker.repository.impl;
 
-import com.xshevska.google_spreadsheet_issue_tracker.domain.model.Issue;
-import com.xshevska.google_spreadsheet_issue_tracker.domain.model.Status;
-import com.xshevska.google_spreadsheet_issue_tracker.repository.IssueRepository;
+import com.xshevska.issuetracker.domain.model.Issue;
+import com.xshevska.issuetracker.domain.model.Status;
+import com.xshevska.issuetracker.repository.IssueRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

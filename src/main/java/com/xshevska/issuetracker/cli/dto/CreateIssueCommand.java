@@ -1,4 +1,4 @@
-package com.xshevska.google_spreadsheet_issue_tracker.cli.dto;
+package com.xshevska.issuetracker.cli.dto;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

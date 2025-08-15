@@ -1,4 +1,4 @@
-package com.xshevska.google_spreadsheet_issue_tracker.cli;
+package com.xshevska.issuetracker.cli;
 
 public final class CliParser {
     private CliParser() {}

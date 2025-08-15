@@ -1,8 +1,8 @@
-package com.xshevska.google_spreadsheet_issue_tracker.adapter.google;
+package com.xshevska.issuetracker.adapter.google;
 
-import com.xshevska.google_spreadsheet_issue_tracker.domain.model.Issue;
-import com.xshevska.google_spreadsheet_issue_tracker.domain.model.Status;
-import com.xshevska.google_spreadsheet_issue_tracker.port.SpreadsheetFacade;
+import com.xshevska.issuetracker.domain.model.Issue;
+import com.xshevska.issuetracker.domain.model.Status;
+import com.xshevska.issuetracker.port.SpreadsheetFacade;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 

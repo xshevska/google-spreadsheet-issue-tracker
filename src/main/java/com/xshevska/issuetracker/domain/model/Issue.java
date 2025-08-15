@@ -1,4 +1,4 @@
-package com.xshevska.google_spreadsheet_issue_tracker.domain.model;
+package com.xshevska.issuetracker.domain.model;
 
 import java.time.OffsetDateTime;
 

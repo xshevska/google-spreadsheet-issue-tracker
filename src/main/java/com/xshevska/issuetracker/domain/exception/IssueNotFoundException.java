@@ -1,4 +1,4 @@
-package com.xshevska.issuetracker.exception;
+package com.xshevska.issuetracker.domain.exception;
 
 public class IssueNotFoundException extends RuntimeException {
     public IssueNotFoundException(String id) {

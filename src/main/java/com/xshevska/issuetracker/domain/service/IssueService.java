@@ -1,4 +1,4 @@
-package com.xshevska.issuetracker.service;
+package com.xshevska.issuetracker.domain.service;
 
 import com.xshevska.issuetracker.domain.model.Issue;
 import com.xshevska.issuetracker.domain.model.Status;

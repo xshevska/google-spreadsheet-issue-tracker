@@ -11,17 +11,13 @@ import java.util.Optional;
 
 @Component
 @Profile("google")
-public class GoogleSpreadsheetFacadeImpl implements SpreadsheetFacade {
+public class GoogleSpreadsheetFacade implements SpreadsheetFacade {
 
     @Override
     public Issue save(Issue issue) {
         return null;
     }
 
-    @Override
-    public Optional<Issue> findById(String id) {
-        return Optional.empty();
-    }
 
     @Override
     public Issue updateStatus(String id, Status status) {

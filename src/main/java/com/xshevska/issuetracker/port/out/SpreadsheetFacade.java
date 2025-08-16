@@ -8,7 +8,6 @@ import java.util.Optional;
 
 public interface SpreadsheetFacade {
     Issue save(Issue issue);
-    Optional<Issue> findById(String id);
     Issue updateStatus(String id, Status status);
     List<Issue> findByStatus(Status status);
 }

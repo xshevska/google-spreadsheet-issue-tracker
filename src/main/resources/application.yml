@@ -7,3 +7,20 @@ spring:
   config:
     activate:
       on-profile: google
+  main:
+    web-application-type: none
+  shell:
+    interactive:
+      enabled: true
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: memory
+  main:
+    web-application-type: none
+  shell:
+    interactive:
+      enabled: true

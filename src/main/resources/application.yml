@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: google-spreadsheet-issue-tracker
+
+---
+spring:
+  config:
+    activate:
+      on-profile: google

@@ -1,10 +1,10 @@
-package com.xshevska.google_spreadsheet_issue_tracker;
+package com.xshevska.issuetracker;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GoogleSpreadsheetIssueTrackerApplicationTests {
+class IssueTrackerApplicationTests {
 
 	@Test
 	void contextLoads() {

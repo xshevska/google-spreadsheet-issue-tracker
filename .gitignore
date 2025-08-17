@@ -40,3 +40,8 @@ buildNumber.properties
 # Virtual machine crash logs
 hs_err_pid*
 replay_pid*
+
+
+# secrets
+.secrets/
+credentials.json

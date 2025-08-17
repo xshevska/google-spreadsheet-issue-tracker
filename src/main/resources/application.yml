@@ -1,26 +1,15 @@
 spring:
   application:
     name: google-spreadsheet-issue-tracker
-
----
-spring:
-  config:
-    activate:
-      on-profile: google
+  profiles:
+    active: google
   main:
     web-application-type: none
   shell:
     interactive:
       enabled: true
 
-
----
-spring:
-  config:
-    activate:
-      on-profile: memory
-  main:
-    web-application-type: none
-  shell:
-    interactive:
-      enabled: true
+gsheets:
+  spreadsheet-id: ${GSHEETS_SPREADSHEET_ID}
+  sheet-name: ${GSHEETS_SHEET_NAME:Issues}
+  credentials-path: ${GSHEETS_CREDENTIALS_PATH:.secrets/credentials.json}

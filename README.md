@@ -1,43 +1,110 @@
 # Google Spreadsheet Issue Tracker
 
-## Introduction
+A **Spring Boot** CLI application for managing issues using Google Sheets as storage. Built with **Java 17** and **Spring Shell**, 
+it provides commands to create, update, and list issues directly from your terminal.
 
-This is a **Java 17** application built with **Spring Boot** and **Spring Shell**.  
-It provides a simple command-line interface (CLI) to manage issues stored in a **Google Spreadsheet**:  
-you can create issues, update their statuses, and list them by status — all directly from the terminal.
+## Setup Guide
 
+### 1. Google Cloud Configuration
+1. Navigate to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a project or select an existing one
+3. Enable the Google Sheets API
+4. Create a Service Account:
+   - Go to "Credentials" → "Create Credentials" → "Service Account"
+   - Download the JSON credentials file
+   - Copy the service account email address
+   - Store the JSON file as `.secrets/credentials.json`
 
-## Configuration
-
-Before running the application, you need to set up the following:
-
-1. Copy `.env.example` to `.env` and update the values:
-   ```bash
-   cp .env.example .env
+### 2. Google Sheets Configuration
+1. Create a new spreadsheet in Google Sheets
+2. Grant Editor access to the service account email
+3. Create a sheet named `Issues` (case-sensitive)
+4. Copy your spreadsheet ID from the URL:
+   ```
+   https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/edit
    ```
 
-2. Update the `.env` file with your Google Spreadsheet ID and other configuration
+## Application Setup
 
-3. Place your Google API credentials in the `.secrets` directory:
+### Local Development
+1. Set up credentials:
    ```bash
+   # Create credentials directory
    mkdir -p .secrets
-   # Copy your credentials.json file to .secrets/credentials.json
+   
+   # Copy previously downloaded Google API credentials
+   cp path/to/downloaded/credentials.json .secrets/credentials.json
    ```
 
-## Running with Docker
+2. Configure environment:
+   
+Before running the application, you need to configure the environment and set the required variables.
 
-1. Make sure you have Docker and Docker Compose installed
-
-2. Build and run the application:
    ```bash
+   # Set the Google Spreadsheet ID in your terminal
+   export GSHEETS_SPREADSHEET_ID=your_spreadsheet_id
+   ```
+
+3. Start the application:
+   ```bash
+   mvn spring-boot:run
+   ```
+
+> Note: The `export` command must be run in the terminal session where you'll start the application. 
+> If you open a new terminal, you'll need to set the environment variable again.
+
+### Configuration Reference
+The application uses the following settings (`application.yml`):
+```yaml
+gsheets:
+  spreadsheet-id: ${GSHEETS_SPREADSHEET_ID}
+  sheet-name: ${GSHEETS_SHEET_NAME:Issues}
+  credentials-path: ${GSHEETS_CREDENTIALS_PATH:.secrets/credentials.json}
+```
+
+## Docker Deployment
+
+1. Configure environment variables in `.env`:
+   ```properties
+   GSHEETS_SPREADSHEET_ID=your_spreadsheet_id
+   GSHEETS_SHEET_NAME=Issues
+   GSHEETS_CREDENTIALS_PATH=/app/.secrets/credentials.json
+   ```
+   #### Environment file (.env)
+
+    The runtime environment file is expected at:
+    
+    ```bash
+    ./docker/env/.env
+    ```
+
+2. Run the application:
+   ```bash
+   # Start the application
    docker-compose run --rm issue-tracker
    ```
 
 ## Security Notes
 
-- Never commit the `.env` file or `.secrets` directory to version control
-- The `.env.example` file serves as a template and should not contain real credentials
-- Make sure to properly secure your Google API credentials
+- Protect sensitive files:
+  - Never commit `.env` files or `.secrets` directory
+  - Use `.env.example` as a configuration template
+
+## Project Structure
+```
+.
+├── docker/
+│   ├── Dockerfile
+│   └── env/
+│       ├── .env        # Docker environment (do not commit)
+│       └── .env.example
+├── .secrets/
+│   └── credentials.json # Google API credentials (do not commit)
+├── src/
+├── docker-compose.yml
+└── pom.xml
+```
+
 
 ## Assignment Description
 

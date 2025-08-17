@@ -139,18 +139,18 @@ Once inside the interactive shell, you can use the following commands:
 ### Create a new issue
 
 ```bash
-issue create --description "<your description>" [--parent-id <issueId>]
+issue create --description "<your description>" [--parentId <issueId>]
 # Alias:
-create --description "<your description>" [--parent-id <issueId>]
+create --description "<your description>" [--parentId <issueId>]
 ```
 
 - `--description` *(required)*: Text describing the issue.
-- `--parent-id` *(optional)*: ID of the parent issue.
+- `--parentId` *(optional)*: ID of the parent issue.
 
 **Example:**
 
 ```bash
-issue create --description "Customer 360 job not ingesting" --parent-id AD-1
+issue create --description "Customer 360 job not ingesting" --parentId AD-1
 ```
 
 ---

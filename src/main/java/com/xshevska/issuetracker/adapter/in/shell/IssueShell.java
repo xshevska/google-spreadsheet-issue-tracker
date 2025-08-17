@@ -10,12 +10,14 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ShellComponent
 @RequiredArgsConstructor
 public class IssueShell {
 
     private final IssueService issueService;
+    private static final String ALLOWED = "OPEN, IN_PROGRESS, CLOSED";
 
     @ShellMethod(key = {"issue create", "create"}, value = "Create a new issue")
     public Issue create(
@@ -37,10 +39,30 @@ public class IssueShell {
     }
 
     @ShellMethod(key = {"issue list", "list"}, value = "List issues by status")
-    public List<Issue> list(
-            @ShellOption(help = "Status") Status status
+    public String list(
+            @ShellOption(help = "Status (" + ALLOWED + ")") String status
     ) {
-        return issueService.listByStatus(status);
+        Status st = parseStatus(status);
+        var issues = issueService.listByStatus(st);
+        if (issues.isEmpty()) {
+            return "No issues with status " + st;
+        }
+        return issues.stream()
+                .map(Issue::toString)
+                .collect(Collectors.joining("\n\n"));
     }
 
+    private Status parseStatus(String raw) {
+        if (raw == null || raw.isBlank()) {
+            throw new IllegalArgumentException("Status is required. Allowed: " + ALLOWED);
+        }
+        String norm = raw.trim().toUpperCase()
+                .replace('-', '_')
+                .replace(' ', '_');
+        try {
+            return Status.valueOf(norm);
+        } catch (IllegalArgumentException ex) {
+            throw new IllegalArgumentException("Unknown status: " + raw + ". Allowed: " + ALLOWED);
+        }
+    }
 }

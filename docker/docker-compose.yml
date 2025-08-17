@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  issue-tracker:
+    build: 
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: issue-tracker
+    volumes:
+      - ../.secrets:/app/.secrets:ro
+    env_file:
+      - env/.env
+    entrypoint: java -jar app.jar
+    stdin_open: true
+    tty: true

@@ -45,3 +45,6 @@ replay_pid*
 # secrets
 .secrets/
 credentials.json
+
+# Environment variables
+docker/env/.env

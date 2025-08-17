@@ -51,11 +51,11 @@ public class GoogleSpreadsheetFacade implements SpreadsheetFacade {
     public Issue save(Issue i) {
         var row = List.of(
                 i.id(),
-                nz(i.description()),
-                nz(i.parentId()),
+                nullToEmpty(i.description()),
+                nullToEmpty(i.parentId()),
                 i.status().name(),
-                fmt(i.createdAt()),
-                (Object) fmt(i.updatedAt())
+                formatTime(i.createdAt()),
+                (Object) formatTime(i.updatedAt())
         );
         try {
             var body = new ValueRange().setValues(List.of(row));
@@ -75,9 +75,9 @@ public class GoogleSpreadsheetFacade implements SpreadsheetFacade {
             var values = readAll();
             for (int r = 1; r < values.size(); r++) {
                 var row = values.get(r);
-                if (id.equals(val(row, COL_ID))) {
+                if (id.equals(getCellValueOrEmpty(row, COL_ID))) {
                     var updatedAt = OffsetDateTime.now().withSecond(0).withNano(0);
-                    var updatedAtText = fmt(updatedAt);
+                    var updatedAtText = formatTime(updatedAt);
                     var rowIndex = r + 1;
                     var rangeStatus = props.sheetName() + "!D" + rowIndex;
                     var rangeUpdated = props.sheetName() + "!F" + rowIndex;
@@ -94,10 +94,10 @@ public class GoogleSpreadsheetFacade implements SpreadsheetFacade {
                             .execute();
                     return new Issue(
                             id,
-                            emptyToNull(val(row, COL_DESC)),
-                            emptyToNull(val(row, COL_PARENT_ID)),
+                            emptyToNull(getCellValueOrEmpty(row, COL_DESC)),
+                            emptyToNull(getCellValueOrEmpty(row, COL_PARENT_ID)),
                             status,
-                            parseTime(val(row, COL_CREATED)),
+                            parseTime(getCellValueOrEmpty(row, COL_CREATED)),
                             parseTime(updatedAtText)
                     );
                 }
@@ -115,7 +115,7 @@ public class GoogleSpreadsheetFacade implements SpreadsheetFacade {
             List<Issue> out = new ArrayList<>();
             for (int r = 1; r < values.size(); r++) {
                 var row = values.get(r);
-                if (status.name().equals(val(row, COL_STATUS))) {
+                if (status.name().equals(getCellValueOrEmpty(row, COL_STATUS))) {
                     out.add(mapRow(row));
                 }
             }
@@ -160,20 +160,20 @@ public class GoogleSpreadsheetFacade implements SpreadsheetFacade {
 
     private Issue mapRow(List<Object> row) {
         return new Issue(
-                val(row, COL_ID),
-                emptyToNull(val(row, COL_DESC)),
-                emptyToNull(val(row, COL_PARENT_ID)),
-                Status.valueOf(val(row, COL_STATUS)),
-                parseTime(emptyToNull(val(row, COL_CREATED))),
-                parseTime(emptyToNull(val(row, COL_UPDATED)))
+                getCellValueOrEmpty(row, COL_ID),
+                emptyToNull(getCellValueOrEmpty(row, COL_DESC)),
+                emptyToNull(getCellValueOrEmpty(row, COL_PARENT_ID)),
+                Status.valueOf(getCellValueOrEmpty(row, COL_STATUS)),
+                parseTime(emptyToNull(getCellValueOrEmpty(row, COL_CREATED))),
+                parseTime(emptyToNull(getCellValueOrEmpty(row, COL_UPDATED)))
         );
     }
 
-    private static String val(List<Object> row, int idx) {
+    private static String getCellValueOrEmpty(List<Object> row, int idx) {
         return idx < row.size() ? String.valueOf(row.get(idx)) : "";
     }
 
-    private static String nz(String s) {
+    private static String nullToEmpty(String s) {
         return s == null ? "" : s;
     }
 
@@ -181,7 +181,7 @@ public class GoogleSpreadsheetFacade implements SpreadsheetFacade {
         return (s == null || s.isBlank()) ? null : s;
     }
 
-    private static String fmt(OffsetDateTime t) {
+    private static String formatTime(OffsetDateTime t) {
         if (t == null) return "";
         return t.withSecond(0).withNano(0).toLocalDateTime().format(TS_FMT);
     }

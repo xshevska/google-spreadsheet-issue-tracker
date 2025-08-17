@@ -1,17 +1,31 @@
 package com.xshevska.issuetracker.domain.model;
 
-import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+public record Issue(
+        String id,
+        String description,
+        String parentId,
+        Status status,
+        java.time.OffsetDateTime createdAt,
+        java.time.OffsetDateTime updatedAt
+) {
+    private static final DateTimeFormatter DISP_FMT =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
-@Data
-@RequiredArgsConstructor
-public final class Issue {
-    private final String id;
-    private final String description;
-    private final String parentId;
-    private final Status status;
-    private final OffsetDateTime createdAt;
-    private final OffsetDateTime updatedAt;
+    @Override
+    public String toString() {
+        String c = createdAt == null ? "null" : createdAt.withSecond(0).withNano(0)
+                .toLocalDateTime().format(DISP_FMT);
+        String u = updatedAt == null ? "null" : updatedAt.withSecond(0).withNano(0)
+                .toLocalDateTime().format(DISP_FMT);
+
+        return """
+                Issue %s [%s]
+                  Desc: %s
+                  Parent: %s
+                  Created: %s
+                  Updated: %s
+                """.formatted(id, status, description, parentId, c, u);
+    }
 }

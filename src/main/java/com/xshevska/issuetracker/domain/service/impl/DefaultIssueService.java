@@ -35,7 +35,7 @@ public class DefaultIssueService implements IssueService {
                 parentId,
                 Status.OPEN,
                 now,
-                now
+                null
         );
         return spreadsheetFacade.save(issue);
     }

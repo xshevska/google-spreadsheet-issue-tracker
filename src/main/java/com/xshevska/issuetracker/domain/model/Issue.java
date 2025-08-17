@@ -15,9 +15,9 @@ public record Issue(
 
     @Override
     public String toString() {
-        String c = createdAt == null ? "" : createdAt.withSecond(0).withNano(0)
+        String c = createdAt == null ? "null" : createdAt.withSecond(0).withNano(0)
                 .toLocalDateTime().format(DISP_FMT);
-        String u = updatedAt == null ? "" : updatedAt.withSecond(0).withNano(0)
+        String u = updatedAt == null ? "null" : updatedAt.withSecond(0).withNano(0)
                 .toLocalDateTime().format(DISP_FMT);
 
         return """

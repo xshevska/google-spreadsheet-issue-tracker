@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface IssueService {
     Issue create(String description, String parentId);
+
     Issue updateStatus(String id, Status status);
+
     List<Issue> listByStatus(Status status);
 }

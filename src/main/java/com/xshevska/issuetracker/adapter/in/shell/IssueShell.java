@@ -17,26 +17,29 @@ public class IssueShell {
 
     private final IssueService issueService;
 
-    @ShellMethod(key = "create", value = "Create a new issue")
+    @ShellMethod(key = {"issue create", "create"}, value = "Create a new issue")
     public Issue create(
             @ShellOption(help = "Description") String description,
             @ShellOption(defaultValue = ShellOption.NULL, help = "Parent ID") String parentId
     ) {
-        return issueService.create(description,parentId);
+        return issueService.create(description, parentId);
     }
 
-    @ShellMethod(key = "update", value= "Update the status of an existing issue")
-    public Issue update(
+    @ShellMethod(
+            key = {"issue update-status", "update-status"},
+            value = "Update the status of an existing issue"
+    )
+    public Issue updateStatus(
             @ShellOption(help = "Issue ID") String id,
             @ShellOption(help = "New status (OPEN, IN_PROGRESS, CLOSED)") Status status
-    ){
+    ) {
         return issueService.updateStatus(id, status);
     }
 
-    @ShellMethod(key = "list", value= "List issues by status")
+    @ShellMethod(key = {"issue list", "list"}, value = "List issues by status")
     public List<Issue> list(
             @ShellOption(help = "Status") Status status
-    ){
+    ) {
         return issueService.listByStatus(status);
     }
 
